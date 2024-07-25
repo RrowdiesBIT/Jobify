@@ -1,0 +1,8 @@
+.background-svg {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyBjbGFzPSJpbmxpbmUtYmxvY2siIGZpbGw9ImN1cnJlbnQiIHdpZHRoPSIxNDQwIiBoZWlnaHQ9IjQ1MCIgdmlld0JveD0iMCAwIDE0NDAgNDUwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xMTg5LjIgMTY5LjJINDIxSDI1My44QzE1OS44IDE2OS4yIDY5LjEgMjAzLjEgMCAyNjIuNlY0NDkuOEMzMCA1My45IDEzMS4zIDI3Ni43IDI1MiAyNzYuN0g0MjQuMUgxMTg3LjRDMTI4MC45IDI3Ni43IDEzNzEgMjQzLjIgMTQ0MCAxODQuM1YwIi8+PC9zdmc+");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
