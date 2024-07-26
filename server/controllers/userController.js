@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Users from "../models/userModel.js";
+import Jobs from "../models/jobsModel.js";
 
 export const updateUser = async (req, res, next) => {
   const {
@@ -71,7 +72,7 @@ export const getUser = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      user: user,
+      // user: user,
     });
   } catch (error) {
     console.log(error);
@@ -82,3 +83,49 @@ export const getUser = async (req, res, next) => {
     });
   }
 };
+
+export const applyForJob = async(req,res,next) =>{
+  try {
+    const {jobId} = req.params;
+    const Id = req.body.user.userId;
+
+    const user = await Users.findById({ _id: Id });
+
+    // if (!mongoose.Types.ObjectId.isValid(jobId)) {
+    //   return res.status(400).json({ message: error.message });
+    // }
+
+    if(!jobId || !user){
+      return res.status(404).send({
+        message:"JOb Id and User Id are required"
+      })
+    }
+
+    //search for the job existance in the db
+    const job = await Jobs.findById(jobId);
+    if (!job) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+
+    //check for if user has applied previously or not
+    if (job.application.includes(Id)) {
+      return res.status(400).json({ success:false, message: "Already applied for this job" });
+    }
+
+    job.application.push(Id);
+    await job.save();
+
+    return res.status(200).json({
+      success:true,
+      message:"Application Successful",
+      //user
+    })
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success:false,
+      mesage:error.message,
+    })
+  }
+}

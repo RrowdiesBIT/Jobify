@@ -7,6 +7,7 @@ import {
   getJobPosts,
   updateJob,
 } from "../controllers/jobControllers.js";
+import { applyForJob } from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -19,6 +20,9 @@ router.put("/update-job/:jobId", userAuth, updateJob);
 // GET JOB POST
 router.get("/find-jobs", getJobPosts);
 router.get("/get-job-detail/:id", getJobById);
+
+//APPLY JOB POST
+router.post("/:jobId/apply",userAuth,applyForJob);
 
 // DELETE JOB POST
 router.delete("/delete-job/:id", userAuth, deleteJob);

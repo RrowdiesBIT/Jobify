@@ -10,6 +10,7 @@ import {
   JobDetail,
   UploadJob,
   UserProfile,
+  // ApplyHistory
 } from "./pages";
 import { useSelector } from "react-redux";
 
@@ -46,6 +47,7 @@ function App() {
             }
             element={<UserProfile />}
           />
+          {/* <Route path={"/apply-history"} element={<ApplyHistory />} /> */}
 
           <Route path={"/company-profile"} element={<CompanyProfile />} />
           <Route path={"/company-profile/:id"} element={<CompanyProfile />} />

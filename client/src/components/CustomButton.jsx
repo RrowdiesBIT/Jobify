@@ -1,11 +1,12 @@
 import React from 'react'
 
-function CustomButton({title,containerStyles, iconRight, type, onClick }) {
+function CustomButton({title,containerStyles, iconRight, type, onClick,disabled }) {
   return (
    <button
-   onClick={onClick}
+   onClick={!disabled ? onClick : null}
    type={type || "button"}
-   className={`inline-flex items-center ${containerStyles}`}
+   className={`inline-flex items-center ${containerStyles} ${disabled ? disabledStyles : ''}`}
+   disabled={disabled}
    >{title}
 
     {iconRight && <div className='ml-2'>{iconRight}</div>}

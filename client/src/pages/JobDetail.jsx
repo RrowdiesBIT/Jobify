@@ -18,10 +18,11 @@ function JobDetail() {
   const [job, setJob] = useState(null);
   const [similarJobs,setSimilarJobs] = useState([]);
 
-
+  
   const [selected, setSelected] = useState("0");
   const [isFetching,setIsFetching] = useState(false);
-
+  const [hasApplied, setHasApplied] = useState(false);
+  
 
   const getJobDetails = async () => {
     setIsFetching(true);
@@ -62,10 +63,45 @@ function JobDetail() {
       console.log(error);
     }
   }
+
+  const applyJOb = async() =>{
+   
+    try {
+    
+      const res = await apiRequest({
+        url:"jobs/"+ id + "/apply",
+        method:"POST",
+        token:user?.token,
+      })
+      console.log(res);
+
+      // const result = await res.json();
+      if(res?.success === "true"){
+        setHasApplied(true);
+        
+        alert(res.message);
+        window.location.reload(true);
+        
+        
+      } else {
+        alert(res.message);
+        setHasApplied(false);
+      }
+
+
+    } catch (error) {
+      console.log(error);
+      setHasApplied(false);
+    }
+  }
+
+  
   useEffect(() => {
    id && getJobDetails();
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [id]);
+
+
   return (
     <div className="container mx-auto">
       <div className="w-full flex flex-col md:flex-row gap-10">
@@ -197,10 +233,21 @@ function JobDetail() {
            />
   ) : (
     user && user?.accountType === "seeker" ? (
-      <CustomButton
+      
+      hasApplied ? (<CustomButton
+        
+        title="Applied"
+        containerStyles="w-full flex items-center justify-center text-black bg-green-400 opacity-90  py-3 px-5 outline-none rounded-full text-base"
+        onClick={applyJOb}
+        
+      />) : (<CustomButton
+        
         title="Apply Now"
         containerStyles="w-full flex items-center justify-center text-white bg-black py-3 px-5 outline-none rounded-full text-base"
-      />
+        onClick={applyJOb}
+        
+      />)
+      
     ) : (
       <CustomButton
         title="Can't Apply"
